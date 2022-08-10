@@ -1,0 +1,114 @@
+$small: 576px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin pointer {
+  cursor: pointer;
+}
+
+//ARTICLE
+article.card {
+  margin: 1rem 0;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: none;
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+
+    section.details {
+      display: flex;
+      align-items: center;
+    }
+
+    @media screen and (max-width: $small) {
+      flex-direction: column;
+    }
+  }
+
+  figure {
+    height: 300px;
+    background-image: url("./../../public/banner.png");
+    background-position: center;
+  }
+
+  main {
+    padding: 0.5rem;
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+  }
+}
+
+//REPLY
+section.reply {
+  display: flex;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    .replyHeader {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  section.avatar {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
+    font-size: 0.85rem;
+    border-radius: 50%;
+    color: white;
+
+    @include flex-center();
+  }
+
+  section.controls {
+    display: flex;
+  }
+}
+
+//COMMON
+hr {
+  margin: 0.5rem !important;
+}
+
+i {
+  width: 1.5rem;
+  height: 1.5rem;
+
+  @include flex-center();
+  @include pointer();
+}
+
+p {
+  text-align: justify;
+}
+
+@media screen and (min-width: $small) {
+  .form-select {
+    width: 50%;
+  }
+}
+
+.bi-hand-thumbs-up {
+  color: #74b72e;
+}
+
+.bi-hand-thumbs-down {
+  color: red;
+}
