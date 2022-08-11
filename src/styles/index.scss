@@ -49,43 +49,68 @@ article.card {
   }
 }
 
-//REPLY
-section.reply {
-  display: flex;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+section.replies {
+  padding: 1rem;
+  padding-top: 0;
 
-  main {
+  div.sorting {
     display: flex;
-    flex-direction: column;
-    padding: 0;
+    justify-content: end;
+    margin-bottom: 1rem;
+  }
 
-    .replyHeader {
+  section.reply {
+    display: flex;
+    margin-bottom: 1rem;
+
+    main {
       display: flex;
       flex-direction: column;
+      padding: 0;
+
+      .replyHeader {
+        display: flex;
+        flex-direction: column;
+      }
     }
-  }
 
-  section.avatar {
-    width: 2rem;
-    height: 2rem;
-    margin: 0.5rem;
-    font-size: 0.85rem;
-    border-radius: 50%;
-    color: white;
+    section.avatar {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 0.5rem;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      border-radius: 50%;
+      color: white;
 
-    @include flex-center();
-  }
+      @include flex-center();
+    }
 
-  section.controls {
-    display: flex;
+    section.controls {
+      display: flex;
+
+      section.vote {
+        display: flex;
+        margin-right: 1rem;
+
+        div.unit {
+          display: flex;
+          margin-right: 0.5rem;
+        }
+
+        section {
+          display: flex;
+        }
+      }
+
+      section.manipulate {
+        display: flex;
+      }
+    }
   }
 }
 
 //COMMON
-hr {
-  margin: 0.5rem !important;
-}
 
 i {
   width: 1.5rem;

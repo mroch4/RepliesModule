@@ -1,14 +1,15 @@
 import IReply from "../../common/interfaces/IReply";
 
 interface IContext {
-  items: IReply[];
-  addItem: (item: IReply) => void;
-  removeItem: (item: IReply) => void;
+  internationalization: string;
+  replies: IReply[];
+  createReply: (reply: IReply) => void;
+  updateReply: (reply: IReply) => void;
+  deleteReply: (reply: IReply) => void;
   showModal: boolean;
   setModalShow: (show: boolean) => void;
-  intl: string;
-  upVote: (item: IReply) => void;
-  downVote: (item: IReply) => void;
+  currentParentID: string;
+  setCurrentParentID: (id: string) => void;
 }
 
 export default IContext;

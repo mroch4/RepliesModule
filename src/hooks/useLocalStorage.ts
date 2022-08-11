@@ -12,7 +12,12 @@ const useLocalStorage = (key: string, defaultValue: IReply[]) => {
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
+    const val = JSON.stringify(value);
+    localStorage.setItem(key, val);
+
+    const length = val.length;
+    const size = ((2 * length) / 1024).toFixed(2);
+    console.log(`Lenght: ${length}, Size: ${size} kB`);
   }, [key, value]);
 
   return [value, setValue];

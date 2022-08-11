@@ -58,15 +58,29 @@ article.card main footer {
           justify-content: end;
 }
 
-section.reply {
+section.replies {
+  padding: 1rem;
+  padding-top: 0;
+}
+
+section.replies div.sorting {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  margin-bottom: 1rem;
 }
 
-section.reply main {
+section.replies section.reply {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+section.replies section.reply main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -77,7 +91,7 @@ section.reply main {
   padding: 0;
 }
 
-section.reply main .replyHeader {
+section.replies section.reply main .replyHeader {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -87,10 +101,11 @@ section.reply main .replyHeader {
           flex-direction: column;
 }
 
-section.reply section.avatar {
+section.replies section.reply section.avatar {
   width: 2rem;
   height: 2rem;
-  margin: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.25rem;
   font-size: 0.85rem;
   border-radius: 50%;
   color: white;
@@ -105,14 +120,36 @@ section.reply section.avatar {
           justify-content: center;
 }
 
-section.reply section.controls {
+section.replies section.reply section.controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-hr {
-  margin: 0.5rem !important;
+section.replies section.reply section.controls section.vote {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 1rem;
+}
+
+section.replies section.reply section.controls section.vote div.unit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+section.replies section.reply section.controls section.vote section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+section.replies section.reply section.controls section.manipulate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 i {

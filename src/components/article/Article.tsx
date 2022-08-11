@@ -10,13 +10,18 @@ import useAppContext from "../../hooks/useAppContext";
 const Article: FC<IArticleProps> = (props): JSX.Element => {
   const { id, author, timeStamp, title, content } = props.article;
 
-  const { items, setModalShow, intl } = useAppContext();
+  const { internationalization, replies, setModalShow, setCurrentParentID } = useAppContext();
 
-  const [showReplies, setShowReplies] = useState(false);
+  const [showReplies, setShowReplies] = useState<boolean>(true);
 
-  const date = new Date(timeStamp).toLocaleDateString(intl);
-  const filteredReplies = items.filter((reply: IReply) => reply.parent === id);
-  const repliesAmount = filteredReplies.length;
+  const dateFormatted = new Date(timeStamp).toLocaleDateString(internationalization);
+  const repliesFiltered = replies.filter((reply: IReply) => reply.parent === id);
+  const repliesAmount = repliesFiltered.length;
+
+  const handleOnClick = () => {
+    setCurrentParentID(id);
+    setModalShow(true);
+  };
 
   return (
     <article className="card">
@@ -25,7 +30,7 @@ const Article: FC<IArticleProps> = (props): JSX.Element => {
         <section className="details">
           <i className="bi bi-person-circle"></i>
           <span>{author},&nbsp;</span>
-          <span>{date}</span>
+          <span>{dateFormatted}</span>
         </section>
       </header>
       <figure></figure>
@@ -33,15 +38,17 @@ const Article: FC<IArticleProps> = (props): JSX.Element => {
         <p>{content}</p>
         <footer>
           <Counter count={repliesAmount} />
-          <Button variant="primary" size="sm" className="mx-2" onClick={() => setModalShow(true)}>
+          <Button variant="primary" size="sm" className="ms-2" onClick={handleOnClick}>
             Reply
           </Button>
-          <Button variant="outline-primary" size="sm" onClick={() => setShowReplies(!showReplies)}>
-            {showReplies ? "Hide Replies" : "Show Replies"}
-          </Button>
+          {repliesAmount > 0 ? (
+            <Button variant="outline-primary" className="ms-2" size="sm" onClick={() => setShowReplies(!showReplies)}>
+              {showReplies ? "Hide Replies" : "Show Replies"}
+            </Button>
+          ) : null}
         </footer>
       </main>
-      {showReplies ? <Replies replies={filteredReplies} /> : null}
+      {repliesAmount > 0 ? showReplies ? <Replies replies={repliesFiltered} /> : null : null}
     </article>
   );
 };

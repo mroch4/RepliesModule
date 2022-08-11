@@ -1,4 +1,4 @@
-const ICON_COLORS = [
+const AVATAR_COLORS = [
   "#2980B9",
   "#3498DB",
   "#D35400",
@@ -25,4 +25,4 @@ const ICON_COLORS = [
   "#EC87BF",
 ];
 
-export default ICON_COLORS;
+export default AVATAR_COLORS;

@@ -8,48 +8,41 @@ import useLocalStorage from "../hooks/useLocalStorage";
 export const AppContext = createContext<IContext | null>(null);
 
 const ContextProvider: FC<IContextProviderProps> = ({ children }) => {
-  const [items, setItems] = useLocalStorage("replies", []);
-  const [showModal, setModalShow] = useState(false);
+  const [replies, setReplies] = useLocalStorage("replies", []);
+  const [showModal, setModalShow] = useState<boolean>(false);
+  const [currentParentID, setCurrentParentID] = useState<string>("");
 
-  const intl = "de-DE";
+  const internationalization = "pl-PL";
 
-  const addItem = (item: IReply) => {
-    setItems((prevRepository: IReply[]) => {
+  const createReply = (item: IReply) => {
+    setReplies((prevRepository: IReply[]) => {
       return [...prevRepository, item];
     });
   };
 
-  const removeItem = (item: IReply) => {
-    setItems((prevRepository: IReply[]) => {
+  const deleteReply = (item: IReply) => {
+    setReplies((prevRepository: IReply[]) => {
       return prevRepository.filter((element) => element.id !== item.id);
     });
   };
 
-  const upVote = (item: IReply) => {
-    item.upVotes++;
-    setItems((prevRepository: IReply[]) => {
-      const prev = prevRepository.filter((element) => element.id !== item.id);
-      return [...prev, item];
-    });
-  };
-
-  const downVote = (item: IReply) => {
-    item.downVotes++;
-    setItems((prevRepository: IReply[]) => {
+  const updateReply = (item: IReply) => {
+    setReplies((prevRepository: IReply[]) => {
       const prev = prevRepository.filter((element) => element.id !== item.id);
       return [...prev, item];
     });
   };
 
   const contextValue = {
-    items: items,
-    addItem: addItem,
-    removeItem: removeItem,
+    internationalization,
+    replies: replies,
+    createReply: createReply,
+    updateReply: updateReply,
+    deleteReply: deleteReply,
     showModal: showModal,
     setModalShow: setModalShow,
-    intl,
-    upVote,
-    downVote,
+    currentParentID: currentParentID,
+    setCurrentParentID: setCurrentParentID,
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

@@ -1,25 +1,41 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
-import ARTICLES from "../common/database/Articles";
-import ICON_COLORS from "../common/iconColors";
+import AVATAR_COLORS from "../common/AvatarColors";
 import { faker } from "@faker-js/faker";
 import useAppContext from "../hooks/useAppContext";
 import uuid4 from "uuid4";
 
 const Popup: FC = (): JSX.Element => {
-  const { addItem, showModal, setModalShow } = useAppContext();
+  const { createReply, showModal, setModalShow, currentParentID } = useAppContext();
 
-  const [firstNameInputValue, setFirstNameInputValue] = useState("");
-  const [lastNameInputValue, setLastNameInputValue] = useState("");
-  const [textboxValue, setTextboxValue] = useState("");
+  const [firstNameInputValue, setFirstNameInputValue] = useState<string>("");
+  const [lastNameInputValue, setLastNameInputValue] = useState<string>("");
+  const [textboxValue, setTextboxValue] = useState<string>("");
 
   const isFormValid = firstNameInputValue !== "" && lastNameInputValue !== "" && textboxValue !== "";
 
-  const fakeData = () => {
+  const mockData = () => {
+    const randomLines = Math.ceil(Math.random() * 3);
     setFirstNameInputValue(faker.name.firstName());
     setLastNameInputValue(faker.name.lastName());
-    setTextboxValue(faker.lorem.lines(3));
+    setTextboxValue(faker.lorem.lines(randomLines));
+  };
+
+  const saveData = () => {
+    const randomColor = AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)];
+
+    createReply({
+      id: uuid4(),
+      parent: currentParentID,
+      timeStamp: new Date().valueOf(),
+      firstName: firstNameInputValue,
+      lastName: lastNameInputValue,
+      avatarColor: randomColor,
+      content: textboxValue,
+      upVotes: 0,
+      downVotes: 0,
+    });
   };
 
   const clearForm = () => {
@@ -28,36 +44,10 @@ const Popup: FC = (): JSX.Element => {
     setTextboxValue("");
   };
 
-  useEffect(() => {
-    clearForm();
-  }, [showModal]);
-
-  //TODO - to remove after passing an article ID
-  const setOfParentsIds = ARTICLES.map((article) => article.id);
-
   const handleSubmit = () => {
-    const randomColor = ICON_COLORS[Math.floor(Math.random() * ICON_COLORS.length)];
-    const randomParent = setOfParentsIds[Math.floor(Math.random() * setOfParentsIds.length)];
-    const randomUpVotes = Math.floor(Math.random() * 100);
-    const randomDownVotes = Math.floor(Math.random() * 100);
-
-    addItem({
-      id: uuid4(),
-      parent: "dbb6675c-17da-11ed-861d-0242ac120002",
-      // parent: randomParent,
-      timeStamp: faker.date.past().valueOf(),
-      // timeStamp: new Date().valueOf(),
-      firstName: firstNameInputValue,
-      lastName: lastNameInputValue,
-      avatarColor: randomColor,
-      content: textboxValue,
-      upVotes: randomUpVotes,
-      downVotes: randomDownVotes,
-      // upVotes: 50,
-      // downVotes: 50,
-    });
-
+    saveData();
     setModalShow(false);
+    clearForm();
   };
 
   return (
@@ -105,8 +95,8 @@ const Popup: FC = (): JSX.Element => {
         <Button variant="danger" onClick={clearForm}>
           Clear
         </Button>
-        <Button variant="primary" onClick={fakeData}>
-          Fake
+        <Button variant="warning" onClick={mockData}>
+          Mock
         </Button>
         <Button variant="success" disabled={isFormValid ? false : true} onClick={handleSubmit}>
           Save

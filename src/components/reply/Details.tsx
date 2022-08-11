@@ -5,9 +5,9 @@ import useAppContext from "../../hooks/useAppContext";
 const Details: FC<IReplyProps> = (props): JSX.Element => {
   const { firstName, lastName, timeStamp } = props.reply;
 
-  const { intl } = useAppContext();
+  const { internationalization } = useAppContext();
 
-  const date = new Date(timeStamp).toLocaleString(intl);
+  const date = new Date(timeStamp).toLocaleString(internationalization);
 
   return (
     <div className="d-flex">
